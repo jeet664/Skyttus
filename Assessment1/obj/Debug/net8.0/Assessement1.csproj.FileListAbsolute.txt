@@ -1,0 +1,14 @@
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\bin\Debug\net8.0\Assessement1.exe
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\bin\Debug\net8.0\Assessement1.deps.json
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\bin\Debug\net8.0\Assessement1.runtimeconfig.json
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\bin\Debug\net8.0\Assessement1.dll
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\bin\Debug\net8.0\Assessement1.pdb
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.AssemblyInfoInputs.cache
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.AssemblyInfo.cs
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.csproj.CoreCompileInputs.cache
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.dll
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\refint\Assessement1.dll
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.pdb
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\Assessement1.genruntimeconfig.cache
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessement1\obj\Debug\net8.0\ref\Assessement1.dll
