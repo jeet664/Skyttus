@@ -28,3 +28,4 @@ C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessment4\obj\Debug\net8.0\refint\Asse
 C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessment4\obj\Debug\net8.0\Assessment4.pdb
 C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessment4\obj\Debug\net8.0\Assessment4.genruntimeconfig.cache
 C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessment4\obj\Debug\net8.0\ref\Assessment4.dll
+C:\Users\jeeth\OneDrive\Desktop\Skyttus\Assessment4\obj\Debug\net8.0\Assessment4.sourcelink.json

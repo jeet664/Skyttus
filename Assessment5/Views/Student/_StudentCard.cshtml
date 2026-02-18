@@ -1,0 +1,10 @@
+@model Assessment.Models.Student
+
+<div style="border:1px solid gray; padding:10px; margin:10px;">
+    <h4>@Model.Name</h4>
+    <p>Department: @Model.Department</p>
+    <p>Marks: @Model.Marks</p>
+    <a asp-action="Details" asp-route-id="@Model.StudentId">
+        View Details
+    </a>
+</div>

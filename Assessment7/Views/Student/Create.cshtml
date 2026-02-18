@@ -1,0 +1,34 @@
+@model Assessment7.Models.Student
+
+<h2>Add New Student</h2>
+
+<form asp-action="Create" method="post">
+    
+    <div>
+        <label>Name</label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" style="color:red"></span>
+    </div>
+
+    <div>
+        <label>Marks</label><br />
+        <input asp-for="Marks" />
+        <span asp-validation-for="Marks" style="color:red"></span>
+    </div>
+
+    <div>
+        <label>Department</label><br />
+        <input asp-for="Department" />
+        <span asp-validation-for="Department" style="color:red"></span>
+    </div>
+
+    <br />
+    <button type="submit">Save</button>
+</form>
+
+<br />
+<a asp-action="Index">Back to List</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

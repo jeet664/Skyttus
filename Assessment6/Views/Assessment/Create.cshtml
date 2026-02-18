@@ -1,0 +1,30 @@
+@model Assessment6.Models.Assessment
+
+<h2>Create Assessment</h2>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label>Title</label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Subject</label>
+        <input asp-for="Subject" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Total Marks</label>
+        <input asp-for="TotalMarks" />
+        <span asp-validation-for="TotalMarks" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

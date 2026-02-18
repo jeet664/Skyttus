@@ -1,0 +1,13 @@
+@model IEnumerable<Assessment.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<h2>Student List</h2>
+
+@foreach (var student in Model)
+{
+    @await Html.PartialAsync("_StudentCard", student)
+}
+

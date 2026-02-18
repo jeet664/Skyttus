@@ -1,31 +1,35 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Assessment4.Models;
+using Assessment4.Services;
 
-namespace Assessment4.Controllers;
-
-public class HomeController : Controller
+namespace Assessment4.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private readonly IMyService _service;
+        private readonly ILogger<HomeController> _logger;
+        private readonly AppSettings _settings;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        public HomeController(IMyService service,
+                              ILogger<HomeController> logger,
+                              IOptions<AppSettings> settings)
+        {
+            _service = service;
+            _logger = logger;
+            _settings = settings.Value;
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public IActionResult Index()
+        {
+            _logger.LogInformation("Home Index Page Accessed");
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewBag.AppName = _settings.AppName;
+            ViewBag.Version = _settings.Version;
+            ViewBag.ServiceMessage = _service.GetMessage();
+
+            return View();
+        }
     }
 }

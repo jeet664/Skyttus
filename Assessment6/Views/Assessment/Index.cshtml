@@ -1,0 +1,27 @@
+@model List<Assessment6.Models.Assessment>
+
+<h2>Assessment List</h2>
+
+<a asp-action="Create" class="btn btn-primary">Add Assessment</a>
+
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Total Marks</th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Title</td>
+        <td>@item.Subject</td>
+        <td>@item.TotalMarks</td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>
+    </tr>
+}
+</table>
