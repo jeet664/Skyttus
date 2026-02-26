@@ -1,4 +1,7 @@
-public interface IEmailService
+namespace Assessment14.Services.Interfaces
 {
-    Task SendEmailAsync(string to, string subject, string htmlBody);
+    public interface IEmailService
+    {
+        Task SendEmailAsync(string to, string subject, string body);
+    }
 }

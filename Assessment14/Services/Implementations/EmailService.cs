@@ -1,61 +1,42 @@
-using Assessment14.Models;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using Microsoft.Extensions.Options;
+using System.Net;
+using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
-namespace Assessment14.Services.Implementations
+namespace Assessment14.Services
 {
-    public class EmailService : IEmailService
+    public class EmailService
     {
-        private readonly SmtpSettings _smtpSettings;
-        private readonly ILogger<EmailService> _logger;
+        private readonly IConfiguration _config;
 
-        public EmailService(IOptions<SmtpSettings> smtpSettings,
-                            ILogger<EmailService> logger)
+        public EmailService(IConfiguration config)
         {
-            _smtpSettings = smtpSettings.Value;
-            _logger = logger;
+            _config = config;
         }
 
-        public async Task SendEmailAsync(string to, string subject, string htmlBody)
+        public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
-            try
+            var smtpSettings = _config.GetSection("SmtpSettings");
+
+            var client = new SmtpClient(smtpSettings["Host"])
             {
-                var email = new MimeMessage();
-                email.Sender = MailboxAddress.Parse(_smtpSettings.Email);
-                email.From.Add(new MailboxAddress(_smtpSettings.DisplayName, _smtpSettings.Email));
-                email.To.Add(MailboxAddress.Parse(to));
-                email.Subject = subject;
+                Port = int.Parse(smtpSettings["Port"]),
+                Credentials = new NetworkCredential(
+                    smtpSettings["Username"],
+                    smtpSettings["Password"]),
+                EnableSsl = true
+            };
 
-                var builder = new BodyBuilder
-                {
-                    HtmlBody = htmlBody
-                };
-
-                email.Body = builder.ToMessageBody();
-
-                using var smtp = new SmtpClient();
-
-                await smtp.ConnectAsync(
-                    _smtpSettings.Host,
-                    _smtpSettings.Port,
-                    SecureSocketOptions.StartTls);
-
-                await smtp.AuthenticateAsync(
-                    _smtpSettings.Email,
-                    _smtpSettings.Password);
-
-                await smtp.SendAsync(email);
-                await smtp.DisconnectAsync(true);
-
-                _logger.LogInformation("Email sent successfully to {Email}", to);
-            }
-            catch (Exception ex)
+            var mailMessage = new MailMessage
             {
-                _logger.LogError(ex, "Email sending failed");
-                throw;
-            }
+                From = new MailAddress(smtpSettings["Username"]),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = false
+            };
+
+            mailMessage.To.Add(toEmail);
+
+            await client.SendMailAsync(mailMessage);
         }
     }
 }

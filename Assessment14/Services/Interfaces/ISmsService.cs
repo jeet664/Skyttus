@@ -1,4 +1,7 @@
-public interface ISmsService
+namespace Assessment14.Services.Interfaces
 {
-    Task SendSmsAsync(string number, string message);
+    public interface ISmsService
+    {
+        Task SendSmsAsync(string number, string message);
+    }
 }

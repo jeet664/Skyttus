@@ -1,59 +1,41 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-public class NotificationBackgroundService : BackgroundService
+namespace Assessment14.Services
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ILogger<NotificationBackgroundService> _logger;
-
-    public static DateTime LastRunTime { get; private set; }
-
-    public NotificationBackgroundService(
-        IServiceProvider serviceProvider,
-        ILogger<NotificationBackgroundService> logger)
+    public class NotificationBackgroundService : BackgroundService
     {
-        _serviceProvider = serviceProvider;
-        _logger = logger;
-    }
+        private readonly ILogger<NotificationBackgroundService> _logger;
+        private readonly EmailService _emailService;
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        _logger.LogInformation("Background Service Started");
-
-        while (!stoppingToken.IsCancellationRequested)
+        public NotificationBackgroundService(
+            ILogger<NotificationBackgroundService> logger,
+            EmailService emailService)
         {
-            try
-            {
-                using var scope = _serviceProvider.CreateScope();
-
-                var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
-                var smsService = scope.ServiceProvider.GetRequiredService<ISmsService>();
-
-                _logger.LogInformation("Running Scheduled Job...");
-
-                await emailService.SendEmailAsync(
-                    "jhprajapati06@gmail.com",
-                    "Scheduled Email",
-                    "This email is sent every 1 minute."
-                );
-
-                await smsService.SendSmsAsync(
-                    "9426686457",
-                    "Scheduled SMS every 1 minute"
-                );
-
-                LastRunTime = DateTime.Now;
-
-                _logger.LogInformation("Scheduled Job Completed");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in Background Service");
-            }
-
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+            _logger = logger;
+            _emailService = emailService;
         }
 
-        _logger.LogInformation("Background Service Stopped");
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    _logger.LogInformation("Background Job Running at: {time}", DateTime.Now);
+
+                    await _emailService.SendEmailAsync(
+                        "prajapatijeet645@gmail.com",
+                        "Background Notification",
+                        $"This email was sent at {DateTime.Now}");
+
+                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error in Background Service");
+                }
+            }
+        }
     }
 }

@@ -1,43 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
+using Assessment14.Models;
+using Assessment14.Services;
 
-[ApiController]
-[Route("api/[controller]")]
-public class NotificationController : ControllerBase
+namespace Assessment14.Controllers
 {
-    private readonly IEmailService _emailService;
-    private readonly ISmsService _smsService;
-
-    public NotificationController(
-        IEmailService emailService,
-        ISmsService smsService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class NotificationController : ControllerBase
     {
-        _emailService = emailService;
-        _smsService = smsService;
-    }
+        private readonly EmailService _emailService;
+        private readonly SmsService _smsService;
 
-    [HttpPost("send")]
-    public async Task<IActionResult> Send()
-    {
-        await _emailService.SendEmailAsync(
-            "jeet202307100510135@gmail.com",
-            "Manual Email from Ass14",
-            "This email was triggered from Swagger."
-        );
-
-        await _smsService.SendSmsAsync(
-            "9426686457",
-            "Manual SMS from Swagger"
-        );
-
-        return Ok("Manual Notification Sent Successfully");
-    }
-
-    [HttpGet("status")]
-    public IActionResult Status()
-    {
-        return Ok(new
+        public NotificationController(
+            EmailService emailService,
+            SmsService smsService)
         {
-            LastExecution = NotificationBackgroundService.LastRunTime
-        });
+            _emailService = emailService;
+            _smsService = smsService;
+        }
+
+        [HttpPost("send-email")]
+        public async Task<IActionResult> SendEmail([FromBody] EmailRequest request)
+        {
+            await _emailService.SendEmailAsync(request.ToEmail, request.Subject, request.Body);
+            return Ok("Email Sent Successfully");
+        }
+
+        [HttpPost("send-sms")]
+        public async Task<IActionResult> SendSms(string number, string message)
+        {
+            await _smsService.SendSmsAsync(number, message);
+            return Ok("SMS Sent (Mock)");
+        }
     }
 }

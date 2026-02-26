@@ -1,18 +1,20 @@
 using Microsoft.Extensions.Logging;
 
-public class SmsService : ISmsService
+namespace Assessment14.Services
 {
-    private readonly ILogger<SmsService> _logger;
-
-    public SmsService(ILogger<SmsService> logger)
+    public class SmsService
     {
-        _logger = logger;
-    }
+        private readonly ILogger<SmsService> _logger;
 
-    public async Task SendSmsAsync(string number, string message)
-    {
-        await Task.Delay(500);
+        public SmsService(ILogger<SmsService> logger)
+        {
+            _logger = logger;
+        }
 
-        _logger.LogInformation($"SMS SENT → To: {number}, Message: {message}");
+        public Task SendSmsAsync(string number, string message)
+        {
+            _logger.LogInformation($"SMS Sent to {number}: {message}");
+            return Task.CompletedTask;
+        }
     }
 }
